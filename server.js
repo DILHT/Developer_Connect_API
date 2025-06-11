@@ -13,14 +13,25 @@ app.use(express.json());
 app.use('/api/users', userroute);
 
 //sync db
-sequelize.sync()
-    .then(() => {
-        console.log('Database synchronized successfully');
-    })
-    .catch((error) => {
-        console.error('Error synchronizing the database:', error);
-    });
+// sequelize.sync()
+//     .then(() => {
+//         console.log('Database synchronized successfully');
+//     })
+//     .catch((error) => {
+//         console.error('Error synchronizing the database:', error);
+//     });
 
+sequelize.authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+    return sequelize.sync();
+  })
+  .then(() => {
+    console.log('Database synchronized successfully');
+  })
+  .catch((error) => {
+    console.error('Unable to connect to the database:', error);
+  });
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
