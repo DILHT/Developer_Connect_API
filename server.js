@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import sequelize from './config/database.js';
 import userroute from './Routes/user.route.js';
+import projectRoutes from './Routes/project.route.js'
 
 
 dotenv.config();
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/users', userroute);
+app.use('/api/projects',projectRoutes);
 
 //sync db
 sequelize.sync()
