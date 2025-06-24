@@ -2,11 +2,11 @@ import Project from "../Models/project.model.js";
 
 export const createProject = async (req, res) => {
     try{
-        const { name, description, image, toolsUsed } = req.body;
+        const { title, description, image, toolsUsed } = req.body;
         const userId = req.user.id;
 
         const project = await Project.create({
-            name,
+            title,
             description,
             image,
             toolsUsed,
@@ -30,7 +30,7 @@ export const getProjects = async (req, res) => {
 
         const projects = await Project.findAll({
             where: { userId},
-            attributes: ['id', 'name', 'description', 'image', 'toolsUsed', 'createdAt'],
+            attributes: ['id', 'title', 'description', 'image', 'toolsUsed', 'createdAt'],
             order: [['createdAt', 'DESC']]
         });
 

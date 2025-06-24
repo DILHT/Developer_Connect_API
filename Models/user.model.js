@@ -1,4 +1,52 @@
-import { STRING } from 'sequelize';
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         username:
+ *           type: string
+ *           example: devuser
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: user@example.com
+ *         bio:
+ *           type: string
+ *           example: Full-stack developer
+ *         website:
+ *           type: string
+ *           example: https://myportfolio.com
+ *         skills:
+ *           type: string
+ *           example: JavaScript, React, Node.js
+ *         github:
+ *           type: string
+ *           example: https://github.com/username
+ *         linkedin:
+ *           type: string
+ *           example: https://linkedin.com/in/username
+ *         profileImage:
+ *           type: string
+ *           example: /uploads/profile-123.jpg
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *       required:
+ *         - username
+ *         - email
+ *         - password
+ */
+
+
+import { STRING, TEXT, JSON } from 'sequelize';
 import sequelize from '../config/database.js'; 
 
 const User = sequelize.define('User',{
@@ -17,7 +65,7 @@ const User = sequelize.define('User',{
         allowNull: false,
         unique: true,
         validate: {
-            isEmail: true, // Validates that the email is in a proper format
+            isEmail: true, //  correct email
             notEmpty: true
         }
     },
@@ -39,7 +87,31 @@ const User = sequelize.define('User',{
         // validate: {
         //     isUrl: true // Validates that the website is in a proper URL format
         // }
+    },
+    skills:{
+        type: TEXT,
+        defaultValue: ''
+    },
+    github:{
+        type: STRING,
+        defaultValue:''
+    },
+    linkedin:{
+        type : STRING,
+        defaultValue:''
+    },
+    sociallinks:{
+        type: JSON,
+        defaultValue: {}
+    },
+    profileImage:{
+        type:STRING,
+        defaultValue:''
     }
+
+}, {
+    timestamps:true
+
 });
 
 

@@ -1,10 +1,48 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Project:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         title:
+ *           type: string
+ *           example: My Awesome Project
+ *         description:
+ *           type: string
+ *           example: A project to connect developers
+ *         image:
+ *           type: string
+ *           example: https://example.com/image.jpg
+ *         toolsUsed:
+ *           type: string
+ *           example: React, Node.js, MongoDB
+ *         userId:
+ *           type: integer
+ *           example: 1
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *       required:
+ *         - title
+ *         - description
+ *         - userId
+ */
+
+
 import sequelize from "../config/database.js";
 import { STRING } from "sequelize";
 import User from "./user.model.js";
 
 
 const Project = sequelize.define('Project',{
-    name:{
+    title:{
         type: STRING,
         allowNull: false,
         validate:{

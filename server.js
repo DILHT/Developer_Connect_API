@@ -4,6 +4,7 @@ import cors from 'cors';
 import sequelize from './config/database.js';
 import userroute from './Routes/user.route.js';
 import projectRoutes from './Routes/project.route.js'
+import setupSwagger from './config/swagger.js';
 
 
 dotenv.config();
@@ -13,9 +14,13 @@ app.use(express.json());
 
 app.use('/api/users', userroute);
 app.use('/api/projects',projectRoutes);
+app.get('/', (_req,res) => { res.send("Server is running ")});
+
+//setup swagger
+setupSwagger(app);
 
 //sync db
-sequelize.sync()
+sequelize.sync( {alter: true} )
     .then(() => {
         console.log('Database synchronized successfully');
     })
