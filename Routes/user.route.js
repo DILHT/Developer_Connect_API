@@ -14,6 +14,7 @@ import upload from '../Middlewares/upload.middleware.js';
 import { updateProfile } from '../Controllers/updateProfile.controller.js';
 import { SearchUserByTech } from '../Controllers/user.search.controller.js';
 import { sendConnectionEmail } from '../Controllers/email.controller.js';
+import { getPublicProfile } from '../Controllers/User.auth.controller.js';
 
 const userroute = express.Router();
 
@@ -96,7 +97,7 @@ userroute.post('/login', login);
 
 /**
  * @swagger
- * /api/users/profile:
+ * /api/users/updateprofile:
  *   put:
  *     summary: Update user profile
  *     tags: [Users]
@@ -241,5 +242,79 @@ userroute.get('/search', protect, SearchUserByTech);
  */
 
 userroute.post('/connect', protect, sendConnectionEmail);
+
+
+/**
+ * @swagger
+ * /api/users/profile:
+ *   get:
+ *     summary: Get all public user profiles with their projects
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: List of all public user profiles
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 users:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       username:
+ *                         type: string
+ *                         example: devuser
+ *                       email:
+ *                         type: string
+ *                         example: dev@example.com
+ *                       bio:
+ *                         type: string
+ *                         example: Full-stack developer
+ *                       skills:
+ *                         type: string
+ *                         example: JavaScript, React, Node.js
+ *                       website:
+ *                         type: string
+ *                         example: https://myportfolio.com
+ *                       github:
+ *                         type: string
+ *                         example: https://github.com/devuser
+ *                       linkedin:
+ *                         type: string
+ *                         example: https://linkedin.com/in/devuser
+ *                       profileImage:
+ *                         type: string
+ *                         example: /uploads/user123.jpg
+ *                       Projects:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             id:
+ *                               type: integer
+ *                               example: 101
+ *                             title:
+ *                               type: string
+ *                               example: My Awesome Project
+ *                             description:
+ *                               type: string
+ *                               example: A portfolio website built with React
+ *                             image:
+ *                               type: string
+ *                               example: /uploads/project-image.jpg
+ *                             toolsUsed:
+ *                               type: string
+ *                               example: React, Node.js, MongoDB
+ *       500:
+ *         description: Internal Server Error
+ */
+
+
+userroute.get('/profile', getPublicProfile);
 
 export default userroute;

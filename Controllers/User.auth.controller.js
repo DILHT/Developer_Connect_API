@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import User from '../Models/user.model.js';
 import jwt from 'jsonwebtoken';
+import Project from '../Models/project.model.js';
 
 
 export const register = async (req, res) => {
@@ -86,5 +87,30 @@ export const login = async (req,res) => {
     }catch(error){
         console.error("Error during login:", error);
         res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+
+export const getPublicProfile = async(_req,res) => {
+    
+    try{
+
+        const user = await User.findAll({
+            attributes: ['id', 'username', 'email','bio', 'skills','website','github','linkedin','profileImage' ],
+            include: [{
+                model:Project,
+                attributes:['id','title','description','image','toolsUsed']
+            }]
+
+        });
+
+        if(!user){
+            return res.status(400).json({ message: "USer Not Found"});
+        }
+
+        res.status(200).json({ user });
+    }catch(error){
+        console.error("Public Profile error: ", error)
+        res.status(500).json({ message : 'Internal Server Error'});
     }
 };
