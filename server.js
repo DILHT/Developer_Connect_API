@@ -20,7 +20,7 @@ app.get('/', (_req,res) => { res.send("Server is running ")});
 setupSwagger(app);
 
 //sync db
-sequelize.sync( {alter: true} )
+sequelize.sync()
     .then(() => {
         console.log('Database synchronized successfully');
     })

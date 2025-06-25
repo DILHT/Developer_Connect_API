@@ -47,7 +47,6 @@ const Project = sequelize.define('Project',{
         allowNull: false,
         validate:{
             notEmpty:true,
-            isAlphanumeric:true,
             len: [3,20]
         }
     },

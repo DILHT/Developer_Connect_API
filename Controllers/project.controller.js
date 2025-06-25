@@ -2,8 +2,9 @@ import Project from "../Models/project.model.js";
 
 export const createProject = async (req, res) => {
     try{
-        const { title, description, image, toolsUsed } = req.body;
+        const { title, description, toolsUsed } = req.body;
         const userId = req.user.id;
+        const image = req.file ? `/uploads/${req.file.filename}` : '';
 
         const project = await Project.create({
             title,

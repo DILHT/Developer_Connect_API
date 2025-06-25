@@ -1,14 +1,3 @@
-// import express from 'express';
-// import { getProjects,createProject } from '../Controllers/project.controller.js';
-// import { protect } from '../Middlewares/auth.middlewire.js';
-
-
-// const router = express.Router();
-
-// router.post('/addProject',protect, createProject);
-// router.get('/myProjects',protect, getProjects);
-
-// export default router;
 
 /**
  * @swagger
@@ -20,6 +9,7 @@
 import express from 'express';
 import { getProjects, createProject } from '../Controllers/project.controller.js';
 import { protect } from '../Middlewares/auth.middlewire.js';
+import upload from '../Middlewares/upload.middleware.js';
 
 const router = express.Router();
 
@@ -34,7 +24,7 @@ const router = express.Router();
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             required:
@@ -43,15 +33,14 @@ const router = express.Router();
  *             properties:
  *               title:
  *                 type: string
- *                 minLength: 3
- *                 maxLength: 20
  *                 example: My Awesome Project
  *               description:
  *                 type: string
  *                 example: A project to connect developers
  *               image:
  *                 type: string
- *                 example: https://example.com/image.jpg
+ *                 format: binary
+ *                 description: Project image file
  *               toolsUsed:
  *                 type: string
  *                 example: React, Node.js, MongoDB
@@ -63,7 +52,8 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
-router.post('/addProject', protect, createProject);
+
+router.post('/addProject', protect,upload.single('image'), createProject);
 
 /**
  * @swagger
