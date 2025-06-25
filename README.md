@@ -31,11 +31,12 @@ DevConnect is a collaborative portfolio and networking platform designed for dev
 
 ### 1. Clone the Repository
 
+
 ```bash
 git clone https://github.com/your-username/devconnect-api.git
-cd devconnect-api
+cd devconnect-api ```
 
-### 2. Install Dependencies
+ ###2. Install Dependencies
       npm install
 
 ### 3. Configure Environment Variables
